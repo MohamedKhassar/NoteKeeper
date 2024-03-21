@@ -1,8 +1,18 @@
 const request = require('supertest');
-const app = require('../index');
+const { app, server } = require('../index');
 
 describe('Note API', () => {
+
+    beforeAll(() => {
+        server;
+    });
+
+    afterAll((done) => {
+        server.close(done);
+    });
+
     let noteId
+    
     it('should create a new note', async () => {
         const newNote = {
         title: 'Test Note',
@@ -55,8 +65,6 @@ describe('Note API', () => {
     });
 
     it('should delete a note by ID', async () => {
-        // const noteId = '65fc092030e0792895cfc2e9';
-
         await request(app)
         .delete(`/api/notes/${noteId}`)
         .expect(200);
