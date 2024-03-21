@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../index'); // Assuming your Express app is exported from app.js
+const app = require('../index');
 
 describe('Note API', () => {
   it('should create a new note', async () => {
@@ -22,12 +22,10 @@ describe('Note API', () => {
       .get('/api/notes')
       .expect(200);
 
-    // Assuming you have some notes in your database
     expect(response.body.length).toBeGreaterThan(0);
   });
 
   it('should get a single note by ID', async () => {
-    // Assuming you have a note ID from an existing note in your database
     const noteId = '65fc091c30e0792895cfc2e7';
 
     const response = await request(app)
@@ -38,7 +36,6 @@ describe('Note API', () => {
   });
 
   it('should update a note by ID', async () => {
-    // Assuming you have a note ID from an existing note in your database
     const noteId = '65fc091c30e0792895cfc2e7';
     const updatedNote = {
       title: 'Updated Title',
@@ -55,14 +52,12 @@ describe('Note API', () => {
   });
 
   it('should delete a note by ID', async () => {
-    // Assuming you have a note ID from an existing note in your database
     const noteId = '65fc092030e0792895cfc2e9';
 
     await request(app)
       .delete(`/api/notes/${noteId}`)
       .expect(200);
 
-    // Verify that the note is deleted
     const response = await request(app)
       .get(`/api/notes/${noteId}`)
       .expect(404);
