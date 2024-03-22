@@ -3,9 +3,9 @@ const { app, server } = require('../index');
 
 describe('Note API', () => {
 
-    beforeAll(() => {
-        server;
-    });
+    // beforeAll(() => {
+    //     server.listen();
+    // });
 
     afterAll((done) => {
         server.close(done);
