@@ -1,7 +1,7 @@
-const Notes = require('../models/NoteModel');
-const DataController = require('../controllers/noteController');
+const Notes = require('../models/NoteModel.js');
+const DataController = require('../controllers/noteController.js');
 
-jest.mock('../models/NoteModel', () => {
+jest.mock('../models/NoteModel.js', () => {
   return {
     
     find: jest.fn(),
