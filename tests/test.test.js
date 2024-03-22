@@ -2,6 +2,7 @@ const Notes = require('../models/NoteModel');
 const DataController = require('../controllers/noteController');
 
 describe('DataController', () => {
+  
   afterEach(() => {
     jest.restoreAllMocks();
   });
