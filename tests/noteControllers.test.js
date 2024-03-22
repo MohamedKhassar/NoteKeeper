@@ -1,4 +1,4 @@
-const Notes = require('../models/NoteModel');
+const Notes = require('../models/noteModel');
 const DataController = require('../controllers/noteController');
 
 describe('DataController', () => {
