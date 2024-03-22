@@ -3,6 +3,7 @@ const DataController = require('../controllers/noteController');
 
 jest.mock('../models/NoteModel', () => {
   return {
+    
     find: jest.fn(),
     create: jest.fn(),
     findByIdAndUpdate: jest.fn(),
