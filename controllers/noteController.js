@@ -1,77 +1,46 @@
-const Note = require("../Models/noteModel");
+/* eslint-disable no-unused-vars */
+const Notes = require('../models/NoteModel')
 
-const createNote = async (req, res) => {
-  try {
-    const note = new Note({
-      title: req.body.title,
-      description: req.body.description,
-    });
-    await note.save();
-    res.status(201).send(note);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
+const DataController = {
 
-const getAll = async (req, res) => {
-  try {
-    const notes = await Note.find();
-    res.send(notes);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-
-// Get a single note by ID
-const getOne = async (req, res) => {
-  try {
-    const note = await Note.findById(req.params.id);
-    if (!note) {
-      return res.status(404).send({ message: "Note not found" });
+  getAll: async (req, res) => {
+    try {
+      const fetchedNotes = await Notes.find();
+      res.status(200).json(fetchedNotes)
+    } catch (error) {
+      res.status(400).json({ message: error })
     }
-    res.send(note);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+  },
 
-// Update a note by ID
-const EditNote = async (req, res) => {
-  try {
-    const note = await Note.findByIdAndUpdate(
-      req.params.id,
-      {
-        title: req.body.title,
-        description: req.body.description,
-      },
-      { new: true }
-    );
-    if (!note) {
-      return res.status(404).send({ message: "Note not found" });
+  postData: async (req, res) => {
+    try {
+      const { title, description } = req.body
+      const createNote = await Notes.create({ title, description })
+      res.status(200).send(createNote)
+    } catch (err) {
+      console.log(`Error getting data ${err}`);
     }
-    res.send(note);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-// Delete a note by ID
-const DeleteNote = async (req, res) => {
-  try {
-    const note = await Note.findByIdAndDelete(req.params.id);
-    if (!note) {
-      return res.status(404).send({ message: "Note not found" });
+  },
+
+  updateData: async (req, res) => {
+    try {
+      const { id } = req.params
+      const updateNote = await Notes.findByIdAndUpdate(id, req.body)
+      res.status(200).json(updateNote)
+    } catch (error) {
+      res.status(400).json({ message: error })
     }
-    res.send({ message: "Note deleted successfully" });
-  } catch (error) {
-    res.status(500).send(error);
+  },
+
+  deleteData: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deletedNote = await Notes.findByIdAndDelete(id)
+      res.status(200).json(deletedNote)
+    } catch (error) {
+      res.status(400).json({ message: error })
+    }
   }
-};
+}
 
-
-module.exports = {
-  createNote,
-  getAll,
-  getOne,
-  EditNote,
-  DeleteNote,
-};
+module.exports = DataController;
