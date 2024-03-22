@@ -21,11 +21,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20'
-          
-      - name: 📥 Download deps
-        uses: u0reo/npm-install@fix/restore-failure
-          with:
-            useRollingCache: true
+
       - name: Install dependencies
         run: npm install
 
