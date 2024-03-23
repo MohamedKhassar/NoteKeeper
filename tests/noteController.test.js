@@ -1,15 +1,15 @@
 const request = require('supertest');
-const { app, server } = require('../index');
+const { app } = require('../app');
 
 describe('Note API', () => {
 
-    beforeAll(() => {
-        server;
-    });
+    // beforeAll(() => {
+    //     server;
+    // });
 
-    afterAll((done) => {
-        server.close(done);
-    });
+    // afterAll((done) => {
+    //     server.close(done);
+    // });
 
     let noteId
     
