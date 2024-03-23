@@ -1,0 +1,129 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "NoteKeeper API"
+basePath: "/"
+schemes:
+  - "http"
+paths:
+  /notes:
+    post:
+      summary: "Create a new note"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Note object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Note"
+      responses:
+        201:
+          description: "Note created successfully"
+          schema:
+            $ref: "#/definitions/Note"
+        400:
+          description: "Bad request. Check your input data"
+    get:
+      summary: "Get all notes"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "List of notes"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Note"
+        500:
+          description: "Internal Server Error"
+  /notes/{id}:
+    get:
+      summary: "Get a note by ID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the note to get"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Note retrieved successfully"
+          schema:
+            $ref: "#/definitions/Note"
+        404:
+          description: "Note not found"
+        500:
+          description: "Internal Server Error"
+    put:
+      summary: "Update a note by ID"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the note to update"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Updated note object"
+          required: true
+          schema:
+            $ref: "#/definitions/Note"
+      responses:
+        200:
+          description: "Note updated successfully"
+          schema:
+            $ref: "#/definitions/Note"
+        404:
+          description: "Note not found"
+        500:
+          description: "Internal Server Error"
+    delete:
+      summary: "Delete a note by ID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the note to delete"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Note deleted successfully"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "Note deleted successfully"
+        404:
+          description: "Note not found"
+        500:
+          description: "Internal Server Error"
+
+definitions:
+  Note:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+        example: "6098b757d447ad0015a4bc34"
+      title:
+        type: "string"
+        example: "Sample Note Title"
+      description:
+        type: "string"
+        example: "This is a sample note description"
+    required:
+      - title
+      - description
