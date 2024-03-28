@@ -22,7 +22,7 @@ describe('Note API', () => {
         const response = await request(app)
         .post('/api/notes')
         .send(newNote)
-        .expect(201);
+        .expect(202);
         
         noteId = response.body._id
 
